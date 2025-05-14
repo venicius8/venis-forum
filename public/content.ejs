@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content.title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="m-4 bg-light">
+    <div class="border mb-4" style="width: 95%;">
+        <h2><%= content.title %></h2>
+        <p class="m-3"><%= content.text %></p>
+    </div>
+    
+    <ul>
+        <% if (!subContents) return
+        subContents.forEach(subContent => { %>
+            <li style="font-size: 1.2rem; margin-bottom: 20px; width: 80%;"><%= subContent.response %></li>
+        <% }); %>
+    </ul>
+
+    <form action="/submitresponse" method="post">
+        <label class="form-label" for="response">Comentar</label>
+        <textarea type="text"
+            class="form-control"
+            name="response"
+            id="response"
+            minlength="5"
+            maxlength="2000"
+            required>
+        </textarea>
+        <input type="hidden" name="responseId" id="responseId" value="<%= content.id %>">
+        <div style="display: flex; margin-top: 20px;">
+            <button type="submit" class="bg-success text-light border me-3 rounded">Enviar</button>
+            <button type="reset"
+                onclick="window.location.href='/'" 
+                class="bg-danger text-light border rounded">
+                Voltar
+            </button>
+        </div>
+    </form>
+</body>
+</html>
